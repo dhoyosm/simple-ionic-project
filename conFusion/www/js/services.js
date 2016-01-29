@@ -38,7 +38,7 @@ angular.module('conFusion.services', ['ngResource'])
 
 .factory('corporateFactory', ['$resource', 'baseURL', function($resource, baseURL) {
 
-
+console.log("corporateFactory: " + baseURL + "leadership/:id" );
     return $resource(baseURL + "leadership/:id");
 
 }])
