@@ -217,6 +217,7 @@ angular.module('conFusion.controllers', [])
         $scope.commentModal = modal;
     });
     $scope.openModal = function() {
+        $scope.popover.hide();  
         $scope.commentModal.show();
     };
     $scope.closeModal = function() {
@@ -226,6 +227,33 @@ angular.module('conFusion.controllers', [])
     $scope.$on('$destroy', function() {
         $scope.commentModal.remove();
     });
+
+    $scope.mycomment = {
+        rating: 5,
+        comment: "",
+        author: "",
+        date: ""
+    };
+
+    $scope.submitComment = function() {
+
+        $scope.mycomment.date = new Date().toISOString();
+        console.log($scope.mycomment);
+
+        $scope.dish.comments.push($scope.mycomment);
+        menuFactory.getDishes().update({
+            id: $scope.dish.id
+        }, $scope.dish);
+
+        $scope.mycomment = {
+            rating: 5,
+            comment: "",
+            author: "",
+            date: ""
+        };
+
+        $scope.closeModal();
+    };
 
 
 }])
