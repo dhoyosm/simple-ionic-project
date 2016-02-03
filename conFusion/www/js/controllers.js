@@ -168,7 +168,7 @@ angular.module('conFusion.controllers', [])
     };
 }])
 
-.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'baseURL', function($scope, $stateParams, menuFactory, baseURL) {
+.controller('DishDetailController', ['$scope', '$stateParams', '$ionicPopover', '$ionicModal', 'menuFactory', 'favoriteFactory', 'baseURL', function($scope, $stateParams, $ionicPopover, $ionicModal, menuFactory, favoriteFactory, baseURL) {
     $scope.baseURL = baseURL;
     $scope.dish = {};
     $scope.showDish = false;
@@ -186,6 +186,46 @@ angular.module('conFusion.controllers', [])
                 $scope.message = "Error: " + response.status + " " + response.statusText;
             }
         );
+
+    $ionicPopover.fromTemplateUrl('templates/dish-detail-popover.html', {
+        scope: $scope
+    }).then(function(popover) {
+        $scope.popover = popover;
+    });
+
+    $scope.addFavorite = function() {
+        console.log("index is " + $scope.dish.id);
+        favoriteFactory.addToFavorites($scope.dish.id);
+        $scope.popover.hide();
+    };
+
+    $scope.openPopover = function($event) {
+        $scope.popover.show($event);
+    };
+    $scope.closePopover = function() {
+        $scope.popover.hide();
+    };
+    //Cleanup the popover when we're done with it!
+    $scope.$on('$destroy', function() {
+        $scope.popover.remove();
+    });
+
+    $ionicModal.fromTemplateUrl('templates/dish-comment.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.commentModal = modal;
+    });
+    $scope.openModal = function() {
+        $scope.commentModal.show();
+    };
+    $scope.closeModal = function() {
+        $scope.commentModal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+        $scope.commentModal.remove();
+    });
 
 
 }])
@@ -274,10 +314,8 @@ angular.module('conFusion.controllers', [])
     }
 
     $scope.deleteFavorite = function(index) {
-
         favoriteFactory.deleteFromFavorites(index);
         $scope.shouldShowDelete = false;
-
     }
 }])
 
