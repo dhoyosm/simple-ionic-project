@@ -10,13 +10,8 @@
             <div class="list">
                 <label class="item item-input item-select">
                     <span class="input-label">Rating</span>
-                    <select ng-model="mycomment.rating">
-                        <option selected></option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                    <select ng-model="mycomment.rating" required>
+                        <option ng-repeat="n in [5,4,3,2,1]" value="{{n}}">{{n}}</option>
                     </select>
                 </label>
                 <label class="item item-input">
