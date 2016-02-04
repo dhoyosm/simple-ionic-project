@@ -2,9 +2,9 @@
 npm install json-server -g
 
 json-server --watch db.json
-
-npm install cordova ionic -g
 -------
+npm install cordova ionic -g
+
 ionic start conFusion sidemenu
 
 ionic serve
