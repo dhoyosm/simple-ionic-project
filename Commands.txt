@@ -11,3 +11,11 @@ ionic serve
 
 ionic serve --lab
 --------
+ionic build android
+
+ionic emulate android
+
+ionic run android
+---------
+
+ionic resources
