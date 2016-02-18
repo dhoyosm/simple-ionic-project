@@ -288,7 +288,7 @@ angular.module('conFusion.controllers', [])
                 });
 
             $cordovaToast
-                .show('Added Favorite ' + $scope.dish.name, 'long', 'center')
+                .show('Added Favorite ' + $scope.dish.name, 'long', 'bottom')
                 .then(function(success) {
                     // success
                 }, function(error) {
@@ -403,7 +403,7 @@ angular.module('conFusion.controllers', [])
     $scope.leaders = leaders;
 }])
 
-.controller('FavoritesController', ['$scope', 'dishes', 'favorites', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', '$ionicLoading', '$timeout', function($scope, dishes, favorites, favoriteFactory, baseURL, $ionicListDelegate, $ionicPopup, $ionicLoading, $timeout) {
+.controller('FavoritesController', ['$scope', 'dishes', 'favorites', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', '$ionicLoading', '$timeout', '$cordovaVibration', function($scope, dishes, favorites, favoriteFactory, baseURL, $ionicListDelegate, $ionicPopup, $ionicLoading, $timeout, $cordovaVibration) {
 
     $scope.baseURL = baseURL;
     $scope.shouldShowDelete = false;
@@ -420,6 +420,7 @@ angular.module('conFusion.controllers', [])
     $scope.deleteFavorite = function(index) {
         favoriteFactory.deleteFromFavorites(index);
         $scope.shouldShowDelete = false;
+        $cordovaVibration.vibrate(1000);
     }
 }])
 
