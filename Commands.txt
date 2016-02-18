@@ -16,6 +16,8 @@ ionic build android
 ionic emulate android
 
 ionic run android
+
+-c -l
 ---------
 
 ionic resources
